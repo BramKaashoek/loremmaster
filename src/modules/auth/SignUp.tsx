@@ -41,11 +41,24 @@ class SignUp extends React.Component<PropsType, IState> {
     return (
       <StyledAuthContainer>
         <form onSubmit={this.signUp} className={this.props.classes.root}>
-          <Input type="email" id="email" value={this.state.email} onChange={this.handleInputChange} />
-          <Input type="password" id="password" value={this.state.password} onChange={this.handleInputChange} />
+          <Input
+            type="email"
+            id="email"
+            placeholder="email"
+            value={this.state.email}
+            onChange={this.handleInputChange}
+          />
+          <Input
+            type="password"
+            id="password"
+            placeholder="password"
+            value={this.state.password}
+            onChange={this.handleInputChange}
+          />
           <Input
             type="password"
             id="passwordRepeat"
+            placeholder="repeat password"
             value={this.state.passwordRepeat}
             onChange={this.handleInputChange}
           />
