@@ -1,12 +1,19 @@
-import { createMuiTheme } from "@material-ui/core";
-import { blue, green } from "@material-ui/core/colors/";
+import { createMuiTheme, Typography } from "@material-ui/core";
+import { green } from "./colors";
 
 export const theme = createMuiTheme({
   palette: {
-    primary: blue,
-    secondary: green
+    primary: green,
+    secondary: {
+      main: "#ffe57f"
+    }
   },
   spacing: {
     unit: 8
+  },
+  typography: {
+    fontFamily: ["sans-serif"].join(","),
+    fontSize: 20,
+    h1: { fontFamily: ["sans-serif"].join(","), fontSize: 20, color: "contrast" }
   }
 });
