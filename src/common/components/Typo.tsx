@@ -7,7 +7,14 @@ interface IState {}
 
 class Typo extends React.Component<IProps, IState> {
   render() {
-    return <div>hello world</div>;
+    return (
+      <div>
+        <h1>Penis</h1>
+        <h2>Penis</h2>
+        <h3>Penis</h3>
+        <body>Penis ipsum</body>
+      </div>
+    );
   }
 }
 

@@ -14,6 +14,6 @@ export const theme = createMuiTheme({
   typography: {
     fontFamily: ["sans-serif"].join(","),
     fontSize: 20,
-    h1: { fontFamily: ["sans-serif"].join(","), fontSize: 20, color: "contrast" }
+    h1: { fontFamily: ["sans-serif"].join(","), fontSize: 300, color: "contrast" }
   }
 });
