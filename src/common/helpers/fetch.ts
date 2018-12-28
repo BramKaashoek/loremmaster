@@ -1,7 +1,7 @@
 const handleResponse = (response: any) => {
   if (!response.ok) {
     console.error(`ERROR ${response.status}: ${response.statusText}`);
-    return undefined;
+    return response;
   }
   return response.json();
 };

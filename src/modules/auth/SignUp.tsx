@@ -3,12 +3,15 @@ import { withStyles, WithStyles, createStyles } from "@material-ui/core/styles";
 import { Input, Button } from "@material-ui/core";
 import StyledAuthContainer from "./StyledAuthContainer";
 import { fetchAsJson } from "../../common/helpers/fetch";
+import auth from "../../common/helpers/auth";
+import { withRouter, RouteComponentProps } from "react-router";
 
 interface IProps {}
 interface IState {
   email: string;
   password: string;
   passwordRepeat: string;
+  error: undefined | string;
 }
 
 const styles = () =>
@@ -18,19 +21,24 @@ const styles = () =>
       flexDirection: "column"
     }
   });
-type PropsType = IProps & WithStyles<typeof styles>;
+type PropsType = IProps & RouteComponentProps & WithStyles<typeof styles>;
 class SignUp extends React.Component<PropsType, IState> {
   state = {
     email: "",
     password: "",
-    passwordRepeat: ""
+    passwordRepeat: "",
+    error: undefined
   };
 
   signUp = async (event: any) => {
     event.preventDefault();
     const { email, password } = this.state;
-    const isSuccess = await fetchAsJson("/users", { method: "POST", body: { email, password } });
-    console.log(isSuccess);
+    const response = await fetchAsJson("/users", { method: "POST", body: { email, password } });
+    console.log(response);
+    if (response.email) {
+      await auth.signIn(email, password);
+      this.props.history.push("/");
+    }
   };
 
   handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,6 +70,7 @@ class SignUp extends React.Component<PropsType, IState> {
             value={this.state.passwordRepeat}
             onChange={this.handleInputChange}
           />
+          {this.state.error && <p>{this.state.error}</p>}
           <Button type="submit">Sign Up</Button>
         </form>
       </StyledAuthContainer>
@@ -69,4 +78,4 @@ class SignUp extends React.Component<PropsType, IState> {
   }
 }
 
-export default withStyles(styles)(SignUp);
+export default withRouter(withStyles(styles)(SignUp));

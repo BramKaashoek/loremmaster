@@ -5,14 +5,14 @@ import { theme } from "./theme";
 
 const styles = createStyles<ClassKeys>({
   "@global": {
-    html: { backgroundColor: theme.palette.primary.main },
+    html: { backgroundColor: "#e5e5e5" },
 
     body: {
       textDecoration: "none",
       fontFamily: "Courier",
 
       color: theme.palette.primary.contrastText,
-      background: theme.palette.primary.main
+      backgroundColor: "#e5e5e5"
     },
     link: {
       color: "#fffffff",

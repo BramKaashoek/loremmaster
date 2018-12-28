@@ -1,9 +1,10 @@
 import * as React from "react";
 import { Input, Button } from "@material-ui/core";
-import { signIn } from "../../common/helpers/auth";
+import auth from "../../common/helpers/auth";
 import { withStyles, createStyles, WithStyles, Theme } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
+import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 import StyledAuthContainer from "./StyledAuthContainer";
+import { UserContext } from "../../common/helpers/context";
 
 interface IState {
   email: string;
@@ -18,7 +19,7 @@ const styles = (theme: Theme) =>
     }
   });
 
-type PropsType = WithStyles<typeof styles>;
+type PropsType = RouteComponentProps & WithStyles<typeof styles>;
 class SignIn extends React.Component<PropsType, IState> {
   state = { email: "", password: "" };
 
@@ -26,9 +27,13 @@ class SignIn extends React.Component<PropsType, IState> {
     this.setState({ [event.target.id]: event.target.value } as any);
   };
 
-  signIn = () => {
-    signIn(this.state.email, this.state.password);
+  signIn = async (event: any) => {
+    event.preventDefault();
+    const { email, password } = this.state;
+    await this.context.logIn(email, password);
+    if (this.context.user) this.props.history.push("/");
   };
+
   render() {
     return (
       <StyledAuthContainer>
@@ -55,4 +60,6 @@ class SignIn extends React.Component<PropsType, IState> {
   }
 }
 
-export default withStyles(styles)(SignIn);
+SignIn.contextType = UserContext;
+
+export default withRouter(withStyles(styles)(SignIn));
