@@ -26,13 +26,14 @@ class Characters extends React.Component<PropsType, IState> {
 
 export default withStyles(styles)(Characters);
 
-enum eType {
+export enum eType {
   celestial,
   humanoid,
-  undead
+  undead,
+  dragon
 }
 
-enum eSize {
+export enum eSize {
   small,
   medium,
   large,
@@ -49,7 +50,8 @@ enum eRace {
   firbolg
 }
 
-type ICharacter = Partial<{
+export type ICharacter = Partial<{
+  description: string;
   id: string;
   name: string;
   race: eRace;
