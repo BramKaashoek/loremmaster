@@ -5,6 +5,7 @@ import StyledAuthContainer from "./StyledAuthContainer";
 import { fetchAsJson } from "../../common/helpers/fetch";
 import auth from "../../common/helpers/auth";
 import { withRouter, RouteComponentProps } from "react-router";
+import { UserContext } from "../../common/helpers/context";
 
 interface IProps {}
 interface IState {
@@ -34,9 +35,8 @@ class SignUp extends React.Component<PropsType, IState> {
     event.preventDefault();
     const { email, password } = this.state;
     const response = await fetchAsJson("/users", { method: "POST", body: { email, password } });
-    console.log(response);
     if (response.email) {
-      await auth.signIn(email, password);
+      await this.context.logIn(email, password);
       this.props.history.push("/");
     }
   };
@@ -77,5 +77,6 @@ class SignUp extends React.Component<PropsType, IState> {
     );
   }
 }
+SignUp.contextType = UserContext;
 
 export default withRouter(withStyles(styles)(SignUp));

@@ -1,6 +1,8 @@
-const handleResponse = (response: any) => {
+const handleResponse = async (response: any) => {
   if (!response.ok) {
     console.error(`ERROR ${response.status}: ${response.statusText}`);
+    const body = await response.json();
+    body.message && console.error(body.message);
     return response;
   }
   return response.json();

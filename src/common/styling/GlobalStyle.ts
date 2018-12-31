@@ -10,15 +10,12 @@ const styles = createStyles<ClassKeys>({
     body: {
       textDecoration: "none",
       fontFamily: "Courier",
-
-      color: theme.palette.primary.contrastText,
       backgroundColor: "#e5e5e5"
     },
     link: {
       color: "#fffffff",
       textDecoration: "none"
     },
-    //h1: { fontSize: 50, color: theme.palette.primary.light },
     iframe: {
       border: 0
     }

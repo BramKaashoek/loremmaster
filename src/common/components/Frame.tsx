@@ -19,6 +19,7 @@ class Frame extends React.Component<IProps, IState> {
     user: undefined,
     logIn: async (username: string, password: string) => {
       const user = await auth.signIn(username, password);
+      console.log(user);
       this.setState({ user });
     },
     logOut: () => {
@@ -39,7 +40,7 @@ class Frame extends React.Component<IProps, IState> {
         <Switch>
           <Route path="/signIn" component={SignIn} />
           <Route path="/signUp" component={SignUp} />
-          <Route path="*" render={() => (this.state.user ? <Content /> : <Redirect to="/signIn" />)} />
+          <Route path="*" render={() => (this.state.user ? <Content /> : <SignIn />)} />
         </Switch>
       </UserContext.Provider>
     );
