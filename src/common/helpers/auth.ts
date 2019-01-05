@@ -9,6 +9,7 @@ class Auth {
 
   async signIn(email: string, password: string) {
     const response = await fetchAsJson("/auth", { method: "POST", body: { email, password } });
+    if (response.error) return response;
     if (response.jwt) {
       localStorage.setItem("jwt", response.jwt);
       this.jwt = response.jwt;

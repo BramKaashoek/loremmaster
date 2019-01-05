@@ -3,7 +3,7 @@ const handleResponse = async (response: any) => {
     console.error(`ERROR ${response.status}: ${response.statusText}`);
     const body = await response.json();
     body.message && console.error(body.message);
-    return response;
+    return { error: body.message };
   }
   return response.json();
 };

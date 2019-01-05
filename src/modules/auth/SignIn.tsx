@@ -8,6 +8,8 @@ import { UserContext } from "../../common/helpers/context";
 
 interface IState {
   email: string;
+  password: string;
+  error: string;
 }
 
 const styles = (theme: Theme) =>
@@ -21,7 +23,7 @@ const styles = (theme: Theme) =>
 
 type PropsType = RouteComponentProps & WithStyles<typeof styles>;
 class SignIn extends React.Component<PropsType, IState> {
-  state = { email: "", password: "" };
+  state = { email: "", password: "", error: "" };
 
   handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ [event.target.id]: event.target.value } as any);
@@ -30,7 +32,10 @@ class SignIn extends React.Component<PropsType, IState> {
   signIn = async (event: any) => {
     event.preventDefault();
     const { email, password } = this.state;
-    await this.context.logIn(email, password);
+    const response = await this.context.logIn(email, password);
+    if (response && response.error) {
+      this.setState({ error: response.error });
+    }
     if (this.context.user) this.props.history.push("/");
   };
 
@@ -53,6 +58,7 @@ class SignIn extends React.Component<PropsType, IState> {
             onChange={this.handleInputChange}
           />
           <Link to="/signUp">Don't have an account yet?</Link>
+          {this.state.error && <p>{this.state.error}</p>}
           <Button type="submit">Sign In</Button>
         </form>
       </StyledAuthContainer>

@@ -14,8 +14,8 @@ class Characters extends React.Component<PropsType, IState> {
   render() {
     return (
       <div className={this.props.classes.root}>
-        {characters.map(character => (
-          <Link to={`characters/${character.id}`}>
+        {characters.map((character, index) => (
+          <Link key={index} to={`characters/${character.id}`}>
             <h1>{character.name}</h1>
           </Link>
         ))}

@@ -18,9 +18,9 @@ class Frame extends React.Component<IProps, IState> {
   state = {
     user: undefined,
     logIn: async (username: string, password: string) => {
-      const user = await auth.signIn(username, password);
-      console.log(user);
-      this.setState({ user });
+      const response = await auth.signIn(username, password);
+      if (response.error) return response;
+      this.setState({ user: response });
     },
     logOut: () => {
       auth.signOut();

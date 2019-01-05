@@ -28,13 +28,17 @@ class SignUp extends React.Component<PropsType, IState> {
     email: "",
     password: "",
     passwordRepeat: "",
-    error: undefined
+    error: ""
   };
 
   signUp = async (event: any) => {
     event.preventDefault();
+    this.setState({ error: "" });
     const { email, password } = this.state;
     const response = await fetchAsJson("/users", { method: "POST", body: { email, password } });
+    if (response.error) {
+      this.setState({ error: response.error });
+    }
     if (response.email) {
       await this.context.logIn(email, password);
       this.props.history.push("/");
@@ -70,7 +74,7 @@ class SignUp extends React.Component<PropsType, IState> {
             value={this.state.passwordRepeat}
             onChange={this.handleInputChange}
           />
-          {this.state.error && <p>{this.state.error}</p>}
+          {this.state.error !== "" && <p>{this.state.error}</p>}
           <Button type="submit">Sign Up</Button>
         </form>
       </StyledAuthContainer>
